@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>calculator</title>
+    <style>
+      .calculator{
+        /* border: 1px solid #333; */
+        padding: .5rem;
+        background-color: #0e0e0e;
+        color: white;
+      }
+      .result{
+        text-align: right;
+        font-size: 4rem;
+        height: 100px;
+      }
+      .btn{
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        font-size: 1.5rem;
+        /* border: solid 1px #333; */
+        border-radius: 2rem;
+
+      }
+
+      .btn:hover{
+        background-color: #eee;
+      }
+
+      .operator{
+        background-color: orange;
+      }
+
+      .number{
+        background-color: #6f6f6f;
+      }
+
+      .func{
+        background-color: #aaa;
+        color: #0e0e0e;
+      }
+    </style>
+  </head>
+  <body>
+    <table cellspacing="8" class="calculator">
+      <tr>
+        <td class="result" colspan="4">0</td>
+      </tr>
+      <tr>
+        <td class="btn func">AC</td>
+        <td class="btn func">+/-</td>
+        <td class="btn func">%</td>
+        <td class="btn operator">/</td>
+      </tr>
+      <tr>
+        <td class="btn number">7</td>
+        <td class="btn number">8</td>
+        <td class="btn number">9</td>
+        <td class="btn operator">*</td>
+      </tr>
+      <tr>
+        <td class="btn number">4</td>
+        <td class="btn number">5</td>
+        <td class="btn number">6</td>
+        <td class="btn operator">-</td>
+      </tr>
+      <tr>
+        <td class="btn number">1</td>
+        <td class="btn number">2</td>
+        <td class="btn number">3</td>
+        <td class="btn operator">+</td>
+      </tr>
+      <tr>
+        <td class="btn number" colspan="2">0</td>
+        <td class="btn number">.</td>
+        <td class="btn operator">=</td>
+      </tr>
+    </table>
+
+    <script src="./calculator.js"></script>
+  </body>
+</html>
