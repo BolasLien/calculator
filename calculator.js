@@ -1,7 +1,11 @@
-// 使用者輸入
-let tempA = 0
-let tempB = 0
-let tempOperator = ''
+// 使用者輸入數字
+let keyNumber = 0
+
+// 暫存數字
+let tempNumber = 0
+
+// 使用者輸入運算
+let keyOperator = ''
 
 // 顯示
 let result = document.getElementById('result')
@@ -9,12 +13,12 @@ let result = document.getElementById('result')
 /* 功能鍵 */
 
 // 清除
-let clear = document.getElementById('clear')
-clear.addEventListener('click', function () {
+let clearButton = document.getElementById('clear')
+clearButton.addEventListener('click', function () {
   result.innerText = '0'
-  tempA = 0
-  tempB = 0
-  tempOperator = ''
+  keyNumber = 0
+  tempNumber = 0
+  keyOperator = ''
 })
 
 let plusmn = document.getElementById('plusmn')
@@ -22,33 +26,40 @@ let percnt = document.getElementById('percnt')
 
 /* 運算子 */
 // 加
-let add = document.getElementById('add')
-add.addEventListener('click', function () {
+let addButton = document.getElementById('add')
+addButton.addEventListener('click', function () {
   inputOperator('+')
 })
 
-let minus = document.getElementById('minus')
-let multiply = document.getElementById('multiply')
-let divide = document.getElementById('divide')
+let minusButton = document.getElementById('minus')
+let multiplyButton = document.getElementById('multiply')
+let divideButton = document.getElementById('divide')
 
 // 等於
 
-let equal = document.getElementById('equal')
-equal.addEventListener('click',function(){
-  switch(tempOperator){
-    case '+':
-      result.innerText = addResult(Number(tempA),Number(tempB))
-      break;
-  }
-
-  tempA = result.innerText
-  tempB = 0
-  tempOperator = ''
+let equalButton = document.getElementById('equal')
+equalButton.addEventListener('click', function () {
+  calculate()
 })
 
+let calculate = () => {
+  switch (keyOperator) {
+    case '+':
+      result.innerText = addResult(Number(keyNumber), Number(tempNumber))
+      break
+  }
 
-let inputOperator = operator =>{
-  tempOperator = operator
+  keyNumber = result.innerText
+  tempNumber = 0
+  debugLog()
+}
+
+let inputOperator = operator => {
+  if (keyOperator) {
+    calculate()
+  }
+  keyOperator = operator
+  debugLog()
 }
 
 /* 數字鍵 */
@@ -57,25 +68,26 @@ for (let i = 0; i <= 9; i++) {
   number[i] = document.getElementById('number' + i)
   number[i].addEventListener('click', function () {
     InputNumber(this.innerText)
-    console.log('tempA='+ Number(tempA));
-    console.log('tempB='+ Number(tempB));
-    console.log('tempOperator='+tempOperator);
+    debugLog()
   })
 }
 
 let InputNumber = number => {
-  if (result.innerText == '0') {
-    result.innerText = ''
+  if (keyOperator && tempNumber === 0) {
+    tempNumber = keyNumber
+    keyNumber = 0
   }
 
-  if(tempOperator){
-    tempB += number
-  } else {
-    tempA += number
-  }
-  result.innerText += number
+  keyNumber += number
+  result.innerText = Number(keyNumber)
 }
 
-let addResult = (a,b)=>{
+let addResult = (a, b) => {
   return a + b
+}
+
+let debugLog = () => {
+  console.log('keyNumber=' + Number(keyNumber))
+  console.log('tempNumber=' + Number(tempNumber))
+  console.log('keyOperator=' + keyOperator)
 }
