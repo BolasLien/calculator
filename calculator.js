@@ -8,12 +8,11 @@ let tempNumber = 0
 let keyOperator = ''
 
 // 顯示
-let result = document.getElementById('result')
+const result = document.getElementById('result')
 
-/* 功能鍵 */
-
+/* 功能按紐 */
 // 清除
-let clearButton = document.getElementById('clear')
+const clearButton = document.getElementById('clear')
 clearButton.addEventListener('click', function () {
   result.innerText = '0'
   keyNumber = 0
@@ -21,57 +20,58 @@ clearButton.addEventListener('click', function () {
   keyOperator = ''
 })
 
-let plusmn = document.getElementById('plusmn')
-let percnt = document.getElementById('percnt')
+const plusmn = document.getElementById('plusmn')
+const percnt = document.getElementById('percnt')
 
-/* 運算子 */
+/* 運算按紐 */
 // 加
-let addButton = document.getElementById('add')
+const addButton = document.getElementById('add')
 addButton.addEventListener('click', function () {
   inputOperator('+')
 })
 
-let minusButton = document.getElementById('minus')
-let multiplyButton = document.getElementById('multiply')
-let divideButton = document.getElementById('divide')
+// 減
+const minusButton = document.getElementById('minus')
+minusButton.addEventListener('click', function () {
+  inputOperator('-')
+})
+
+// 乘
+const multiplyButton = document.getElementById('multiply')
+multiplyButton.addEventListener('click', function () {
+  inputOperator('*')
+})
+
+// 除
+const divideButton = document.getElementById('divide')
+divideButton.addEventListener('click', function () {
+  inputOperator('/')
+})
 
 // 等於
-
-let equalButton = document.getElementById('equal')
+const equalButton = document.getElementById('equal')
 equalButton.addEventListener('click', function () {
   calculate()
 })
 
-let calculate = () => {
-  switch (keyOperator) {
-    case '+':
-      result.innerText = addResult(Number(keyNumber), Number(tempNumber))
-      break
-  }
-
-  keyNumber = result.innerText
-  tempNumber = 0
-  debugLog()
-}
-
-let inputOperator = operator => {
-  if (keyOperator) {
-    calculate()
-  }
-  keyOperator = operator
-  debugLog()
-}
-
-/* 數字鍵 */
-let number = []
+/* 數字按紐 */
+const numberButton = []
 for (let i = 0; i <= 9; i++) {
-  number[i] = document.getElementById('number' + i)
-  number[i].addEventListener('click', function () {
-    InputNumber(this.innerText)
+  numberButton[i] = document.getElementById('number' + i)
+  numberButton[i].addEventListener('click', function () {
+    InputNumber(i.toString())
     debugLog()
   })
 }
 
+const pointButton = document.getElementById('point')
+pointButton.addEventListener('click', function () {
+  if (keyNumber.toString().indexOf('.') === -1) {
+    InputNumber('.')
+  }
+})
+
+// 輸入數字
 let InputNumber = number => {
   if (keyOperator && tempNumber === 0) {
     tempNumber = keyNumber
@@ -82,12 +82,38 @@ let InputNumber = number => {
   result.innerText = Number(keyNumber)
 }
 
-let addResult = (a, b) => {
-  return a + b
+// 輸入運算
+let inputOperator = operator => {
+  if (keyOperator) {
+    calculate()
+  }
+  keyOperator = operator
+  debugLog()
+}
+
+// 運算結果
+let calculate = () => {
+  switch (keyOperator) {
+    case '+':
+      result.innerText = Number(tempNumber) + Number(keyNumber)
+      break
+    case '-':
+      result.innerText = Number(tempNumber) - Number(keyNumber)
+      break
+    case '*':
+      result.innerText = Number(tempNumber) * Number(keyNumber)
+      break
+    case '/':
+      result.innerText = Number(tempNumber) / Number(keyNumber)
+      break
+  }
+
+  keyNumber = result.innerText
+  tempNumber = 0
+  keyOperator = ''
+  debugLog()
 }
 
 let debugLog = () => {
-  console.log('keyNumber=' + Number(keyNumber))
-  console.log('tempNumber=' + Number(tempNumber))
-  console.log('keyOperator=' + keyOperator)
+  console.log('keyNumber=' + Number(keyNumber), 'tempNumber=' + Number(tempNumber), 'keyOperator=' + keyOperator)
 }
