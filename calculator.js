@@ -21,6 +21,17 @@ clearButton.addEventListener('click', function () {
 })
 
 const plusmn = document.getElementById('plusmn')
+plusmn.addEventListener('click', function () {
+  if (keyOperator && tempNumber === 0) {
+    tempNumber = keyNumber
+    keyNumber = 0
+  } else {
+    keyNumber =  keyNumber * -1
+  }
+
+  result.innerText = keyNumber
+  debugLog()
+})
 const percnt = document.getElementById('percnt')
 
 /* 運算按紐 */
@@ -60,7 +71,6 @@ for (let i = 0; i <= 9; i++) {
   numberButton[i] = document.getElementById('number' + i)
   numberButton[i].addEventListener('click', function () {
     InputNumber(i.toString())
-    debugLog()
   })
 }
 
@@ -80,6 +90,7 @@ let InputNumber = number => {
 
   keyNumber += number
   result.innerText = Number(keyNumber)
+  debugLog()
 }
 
 // 輸入運算
@@ -93,6 +104,10 @@ let inputOperator = operator => {
 
 // 運算結果
 let calculate = () => {
+  if(tempNumber === 0){
+    return
+  }
+
   switch (keyOperator) {
     case '+':
       result.innerText = Number(tempNumber) + Number(keyNumber)
@@ -115,5 +130,5 @@ let calculate = () => {
 }
 
 let debugLog = () => {
-  console.log('keyNumber=' + Number(keyNumber), 'tempNumber=' + Number(tempNumber), 'keyOperator=' + keyOperator)
+  console.log('keyNumber=' + keyNumber, 'tempNumber=' + tempNumber, 'keyOperator=' + keyOperator)
 }
