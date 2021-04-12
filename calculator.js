@@ -22,17 +22,17 @@ clearButton.addEventListener('click', function () {
 
 const plusmn = document.getElementById('plusmn')
 plusmn.addEventListener('click', function () {
-  if (keyOperator && tempNumber === 0) {
-    tempNumber = keyNumber
-    keyNumber = 0
-  } else {
-    keyNumber =  keyNumber * -1
-  }
+  keyNumber = keyNumber * -1
 
   result.innerText = keyNumber
   debugLog()
 })
 const percnt = document.getElementById('percnt')
+percnt.addEventListener('click', function () {
+  keyNumber = keyNumber * 0.01
+
+  result.innerText = keyNumber
+})
 
 /* 運算按紐 */
 // 加
@@ -104,7 +104,7 @@ let inputOperator = operator => {
 
 // 運算結果
 let calculate = () => {
-  if(tempNumber === 0){
+  if (tempNumber === 0) {
     return
   }
 
